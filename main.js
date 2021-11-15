@@ -1,46 +1,52 @@
-const list = {};
+const LIST_STATUS = ['To Do', 'In Progress', "Done"];
+const LIST_PRIORITY = ['high', 'low'];
+let id = 1;
+let task;
+let list = [];
 
-function addTask(task) {
-  if (!(task in list)) {
-    list[task] = 'To Do';
-  } else console.log("Задача " + task + " уже существует");
+
+function addTask(name, status="To Do", priority='low') {
+  list.push({id, name, status, priority});
+  id++;
 };
 
-function changeStatus(task, status) {
-  if (task in list) {
-    if (["To Do", "In Progress", "Done"].indexOf(status) != -1) {
-      list[task] = status;
-    } else console.log("Статуса " + status + " не существует");
-  } else console.log("Задачи " + task + " не существует"); 
+function changeStatus(name, status, priority) {
+  task = list.find(item => (item.name == name));
+
+  if (task) {
+    if (status) task.status = status;
+    if (priority) task.priority = priority;
+  };
 };
 
-function deleteTask(task) {
-  if (task in list) {
-    delete list[task]; 
-  } else console.log("Задачи " + task + " не существует");
+function deleteTask(name) {
+  task = list.find(item => (item.name == name));
+
+  if (task){
+    list.splice(list.indexOf(task), 1);
+  };
 };
 
-function showList() {
-  let toDo = 'To Do: \n';
-  let inProgress = 'In Progress: \n';
-  let done = 'Done: \n';
-  for (let key in list) {
-    if (list[key] == 'To Do') {
-      toDo += ` "${key}",\n`;
-    } else if (list[key] == 'In Progress') {
-      inProgress += ` "${key}",\n`;
-    } else done += ` "${key}",\n`;
-  }
-  if (toDo == 'To Do: \n') toDo += ' -\n';
-  if (inProgress == 'In Progress: \n') inProgress += ' -\n';
-  if (done == 'Done: \n') done += ' -\n';
-  console.log(toDo + inProgress + done);
-}
+function showBy(condition) {
+  let listShow = (condition == "status") ? LIST_STATUS : (condition == "priority") ? LIST_PRIORITY : [];
+
+  for (let title of listShow) {
+    let paragraph = (list.filter(item => item[condition] == title).length != 0)
+    ? list.filter(item => item[condition] == title).map(item => "\n  " + item.name) 
+    : ["\n  -"];
+
+    console.log(title + ":" + paragraph.join(''));
+  };
+};
+
 
 addTask("first");
 addTask("second");
 addTask("third");
+addTask("fourth");
 changeStatus("second", "Done");
-changeStatus("third", "In Progress");
+changeStatus("third", "In Progress", 'high');
 deleteTask("second");
-showList();
+showBy("status");
+console.log("-----------------------------");
+showBy("priority");
