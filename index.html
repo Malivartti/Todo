@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ToDo UI</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="title">HIGH</div>
+		<div class="section-priority">
+			<form class="form-create-task" >
+				<input class="input-create-task" type="text" placeholder="Добавить важных дел">
+				<button class="input-create-task-icon"><img src="img/add.svg" alt="add"></button>
+			</form>
+			<div class="list-tasks"></div>
+		</div>
+		<div class="title">LOW</div>
+		<div class="section-priority">
+			<form class="form-create-task">
+				<input class="input-create-task" type="text" placeholder="Добавить">
+				<button class="input-create-task-icon"><img src="img/add.svg" alt="add"></button>
+			</form>
+			<div class="list-tasks"></div>
+		</div>
+	</div>
+
+	<template id="tmpl">
+		<div class="item-task">
+			<label class="todo__label">
+				<input type="checkbox" class="input-create-tasked">
+				<span class="todo__checkbox"></span>
+			</label>
+			<p class="todo__text"></p>
+			<img class="todo__delete-icon" src="img/remove.svg" alt="remove">
+		</div>
+	</template>
+	
+	<script type="module" src="js/main.js"></script>
+	<script type="module" src="js/view.js"></script>
+</body>
+</html>
